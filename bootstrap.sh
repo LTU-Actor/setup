@@ -96,4 +96,7 @@ sudo -u $SUDO_USER bash << EOF
     make neovim nerd-font-ubuntu-mono git
   fi
 
+  if ! grep -Fq ".local/bin" "${HOME}/.bashrc"; then
+    echo 'export PATH="${HOME}/.local/bin:${PATH}"' >> "${HOME}/.bashrc"
+  fi
 EOF
