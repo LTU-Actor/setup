@@ -148,7 +148,7 @@ sudo -u $SUDO_USER bash << EOF
   if [ ! -d "${HOME}/dotfiles" ]; then
     git clone https://gitlab.com/pleune/dotfiles.git "${HOME}/dotfiles"
     cd "${HOME}/dotfiles"
-    make neovim nerd-font-ubuntu-mono git
+    make neovim fonts git
     if [ "x$INSTALL_BSPWM" != "x" ]; then
       make bspwm feh_random_bg
     fi
