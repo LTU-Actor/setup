@@ -48,13 +48,17 @@ if [ ! -e /opt/ros/noetic/ ]; then
 fi
 
 
+echo "$SUDO_USER"
 sudo -u $SUDO_USER bash << EOF
+    set -e
 
-  if ! grep -Fq "/opt/ros" "${HOME}/.bashrc"; then
-    echo 'source /opt/ros/noetic/setup.bash' >> "${HOME}/.bashrc"
-  fi
-
+    if ! grep -Fq "/opt/ros" "/home/${SUDO_USER}/.bashrc"; then
+        echo 'adding line to bashrc'
+        echo 'source /opt/ros/noetic/setup.bash' >> "/home/${SUDO_USER}/.bashrc"
+        echo 'added'
+    fi
 EOF
+
 
 apt install ros-noetic-dbw-polaris
 
