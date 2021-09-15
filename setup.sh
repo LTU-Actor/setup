@@ -19,7 +19,7 @@ apt install -y \
   curl \
   fish \
   vim \
-  nvim \
+  neovim \
   git \
   nodejs \
   build-essential \
@@ -28,8 +28,7 @@ apt install -y \
   openssh-server \
   clang \
   python \
-  python3 \
-  python-is-python3
+  python3
 
 if [ ! -e /opt/ros/noetic/ ]; then
     sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -49,7 +48,6 @@ if [ ! -e /opt/ros/noetic/ ]; then
 fi
 
 
-
 sudo -u $SUDO_USER bash << EOF
 
   if ! grep -Fq "/opt/ros" "${HOME}/.bashrc"; then
@@ -57,3 +55,7 @@ sudo -u $SUDO_USER bash << EOF
   fi
 
 EOF
+
+apt install ros-noetic-dbw-polaris
+
+echo "Setup complete. Please close this terminal and open a new one."
