@@ -45,8 +45,13 @@ if [ ! -e /opt/ros/noetic/ ]; then
     rosdep init
 
     rosdep update
+
 fi
 
+# post ros install
+sudo apt install python3-rosdep \
+    python3-catkin-tools \
+    ros-noetic-dbw-polaris
 
 echo "$SUDO_USER"
 sudo -u $SUDO_USER bash << EOF
@@ -58,8 +63,5 @@ sudo -u $SUDO_USER bash << EOF
         echo 'added'
     fi
 EOF
-
-
-apt install ros-noetic-dbw-polaris
 
 echo "Setup complete. Please close this terminal and open a new one."
