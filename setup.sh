@@ -29,7 +29,9 @@ apt install -y \
   clang \
   python \
   python3 \
-  silversearcher-ag
+  silversearcher-ag \
+  nodejs \
+  npm
 
 if [ ! -e /opt/ros/noetic/ ]; then
     sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -65,5 +67,7 @@ sudo -u $SUDO_USER bash << EOF
         echo 'added'
     fi
 EOF
+
+sudo apt install -y python-is-python3
 
 echo "Setup complete. Please close this terminal and open a new one."
