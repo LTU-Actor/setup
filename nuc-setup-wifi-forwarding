@@ -1,0 +1,56 @@
+echo "Installing dhcpd server and iptables config reader"
+sudo apt-get install isc-dhcp-server iptables-persistent
+
+echo "Writing /etc/dhcp/dhcpd.conf"
+cat <<EOF | sudo tee /etc/dhcp/dhcpd.conf > /dev/null
+# ACTor dhcp server /etc/dhcp/dhcpd.conf
+ddns-update-style none;
+default-lease-time 600;
+max-lease-time 7200;
+
+subnet 192.168.0.0 netmask 255.255.0.0 {
+ range 192.168.0.61 192.168.0.199;
+ option routers 192.168.0.60;
+ option domain-name-servers 1.1.1.1;
+}
+EOF
+
+echo "Writing /etc/netplan/99-actor-static-ip.yaml"
+cat <<EOF | sudo tee /etc/netplan/99-actor-static-ip.yaml > /dev/null
+# ACTor static ip config
+network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    eno1:
+      addresses:
+        - 192.168.0.60/16
+      nameservers:
+        addresses: [1.1.1.1, 8.8.8.8, 4.4.4.4]
+EOF
+
+echo "Writing /etc/sysctl.d/99-ipv4-forward.conf"
+cat <<EOF | sudo tee /etc/sysctl.d/99-ipv4-forward.conf > /dev/null
+net.ipv4.ip_forward = 1
+EOF
+
+echo "Writing /etc/iptables/rules.v4"
+cat <<EOF | sudo tee /etc/iptables/rules.v4
+*filter
+:INPUT ACCEPT [2117:251017]
+:FORWARD ACCEPT [3325:4355368]
+:OUTPUT ACCEPT [1972:240413]
+COMMIT
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -o wlan0 -j MASQUERADE
+COMMIT
+EOF
+
+echo "Disabling predictable interface names"
+sudo ln -s -f /dev/null /etc/udev/rules.d/80-net-setup-link.rules
+
+echo "REBOOT BEFORE WIFI FORWARDING AND DHCP WILL WORK CORRECTLY. YOU WILL NEED TO RECONNECT TO THE WIFI AFTER LOGGING IN!"

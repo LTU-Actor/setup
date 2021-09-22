@@ -28,7 +28,8 @@ apt install -y \
   openssh-server \
   clang \
   python \
-  python3
+  python3 \
+  silversearcher-ag
 
 if [ ! -e /opt/ros/noetic/ ]; then
     sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
@@ -40,7 +41,7 @@ if [ ! -e /opt/ros/noetic/ ]; then
 
     source /opt/ros/noetic/setup.bash
 
-    sudo apt install python3-rosdep
+    sudo apt install -y python3-rosdep
 
     rosdep init
 
@@ -49,7 +50,8 @@ if [ ! -e /opt/ros/noetic/ ]; then
 fi
 
 # post ros install
-sudo apt install python3-rosdep \
+sudo apt install -y \
+    python3-rosdep \
     python3-catkin-tools \
     ros-noetic-dbw-polaris
 
