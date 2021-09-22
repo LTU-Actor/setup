@@ -24,3 +24,8 @@ mv ~/actor_ws/src/ethz_piksi_ros/piksi_v2_rtk_ros/package.xml ~/actor_ws/src/eth
 
 cd ~/actor_ws
 rosdep install --from-paths src --ignore-src -r -y
+
+if ! grep -Fq "~/actor_ws/devel/setup" "/home/${USER}/.bashrc"; then
+    echo 'source ~/actor_ws/devel/setup.bash' >> "/home/${USER}/.bashrc"
+fi
+
