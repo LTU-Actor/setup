@@ -31,7 +31,13 @@ apt install -y \
   python3 \
   silversearcher-ag \
   nodejs \
-  npm
+  npm \
+  python3-pip
+
+pip install \
+  numba==0.54.0
+  numpy==1.20.3
+
 
 if [ ! -e /opt/ros/noetic/ ]; then
     sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
