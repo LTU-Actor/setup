@@ -22,7 +22,7 @@ network:
   version: 2
   renderer: NetworkManager
   ethernets:
-    eno1:
+    eth0:
       addresses:
         - 192.168.0.60/16
       nameservers:
