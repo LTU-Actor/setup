@@ -50,11 +50,10 @@ if [ ! -e /opt/ros/noetic/ ]; then
     source /opt/ros/noetic/setup.bash
 
     sudo apt install -y python3-rosdep
+fi
 
+if [ ! -e /etc/ros/rosdep/sources.list.d/20-default.list ]; then
     rosdep init
-
-    rosdep update
-
 fi
 
 # post ros install
@@ -68,6 +67,8 @@ sudo apt install -y \
 echo "$SUDO_USER"
 sudo -u $SUDO_USER bash << EOF
     set -e
+
+    rosdep update
 
     if ! grep -Fq "/opt/ros" "/home/${SUDO_USER}/.bashrc"; then
         echo 'adding line to bashrc'
