@@ -22,6 +22,9 @@ git clone https://github.com/LTU-Actor/Vehicle-GEM.git
 git clone --branch v1.11.0 https://github.com/ethz-asl/ethz_piksi_ros.git
 mv ~/actor_ws/src/ethz_piksi_ros/piksi_v2_rtk_ros/package.xml ~/actor_ws/src/ethz_piksi_ros/piksi_v2_rtk_ros/package.xml.disabled 2>/dev/null
 
+cd ~/actor_ws/ethz_piksi_ros
+git am ~/actor_ws/src/setup/piksi_py3_patch.patch
+
 cd ~/actor_ws
 rosdep install --from-paths src --ignore-src -r -y
 
