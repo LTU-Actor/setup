@@ -61,8 +61,7 @@ sudo apt install -y \
     python3-rosdep \
     python3-catkin-tools \
     ros-noetic-dbw-polaris \
-    ros-noetic-dataspeed-ulc \
-    ros-noetic-avt-vimba-camera
+    ros-noetic-dataspeed-ulc
 
 echo "$SUDO_USER"
 sudo -u $SUDO_USER bash << EOF
