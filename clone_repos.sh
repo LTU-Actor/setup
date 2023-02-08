@@ -18,6 +18,10 @@ git clone https://github.com/LTU-Actor/Route-Pothole.git
 git clone https://github.com/LTU-Actor/Route-Waypoint.git
 git clone https://github.com/LTU-Actor/Vehicle-GEM.git
 
+if [[ "$1" == "actor2" ]];then
+git clone https://github.com/LTU-Actor/actor2_support.git
+fi
+
 # External Deps
 git clone --branch v1.11.0 https://github.com/ethz-asl/ethz_piksi_ros.git
 mv ~/actor_ws/src/ethz_piksi_ros/piksi_v2_rtk_ros/package.xml ~/actor_ws/src/ethz_piksi_ros/piksi_v2_rtk_ros/package.xml.disabled 2>/dev/null
