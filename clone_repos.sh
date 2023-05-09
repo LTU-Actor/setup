@@ -23,18 +23,16 @@ git clone https://github.com/LTU-Actor/actor2_support.git
 fi
 
 # External Deps
-git clone --branch v1.11.0 https://github.com/ethz-asl/ethz_piksi_ros.git
-mv ~/actor_ws/src/ethz_piksi_ros/piksi_v2_rtk_ros/package.xml ~/actor_ws/src/ethz_piksi_ros/piksi_v2_rtk_ros/package.xml.disabled 2>/dev/null
+# Piksi reconfig
+wstool init
+wstool set --git ethz_piksi_ros https://github.com/ethz-asl/ethz_piksi_ros.git
+wstool update
 
-# Apply python3 patch for piksi
-#
-# If there are still errors with piksi, you may need to manually update quaternion and numpy
-# pip3 install quaternion
-# pip3 install -U numpy
-cd ~/actor_ws/src/ethz_piksi_ros
-if git apply --check ~/actor_ws/src/setup/piksi_py3_patch.patch; then
-	git am ~/actor_ws/src/setup/piksi_py3_patch.patch
-fi
+source /opt/ros/noetic/setup.bash
+./ethz_piksi_ros/piksi_multi_cpp/install/prepare-jenkins-slave.sh
+
+wstool merge ethz_piksi_ros/piksi_multi_cpp/install/dependencies_https.rosinstall
+wstool update -j8
 
 cd ~/actor_ws
 rosdep install --from-paths src --ignore-src -r -y
